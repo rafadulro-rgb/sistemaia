@@ -38,33 +38,44 @@ npm run dev:api   # http://localhost:4000
 npm run dev:web   # http://localhost:5173
 ```
 
-## Despliegue en Vercel (monorepo)
+## Despliegue en Vercel (services)
 
-El monorepo se despliega como **dos proyectos de Vercel** sobre el mismo repositorio:
+El monorepo se despliega como **un solo proyecto de Vercel** con dos services definidos en `vercel.json`:
 
-### 1. Backend (`apps/api`)
+- `web`: SvelteKit en `apps/web`, atendiendo todas las rutas públicas.
+- `api`: Express en `apps/api`, atendiendo `/api/*`.
+
+### 1. Importar el proyecto
 
 1. En Vercel: *Add New → Project* → importa el repo.
-2. **Root Directory**: `apps/api`
-3. Framework preset: *Other* (el `vercel.json` ya enruta todo a `api/index.js`).
-4. Variables de entorno: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_ANON_KEY`, `JWT_SECRET`, `BCRYPT_ROUNDS`, `LB_WORKERS`.
-5. Deploy → anota la URL, ej. `https://sistemai-api.vercel.app`.
+2. **Root Directory**: raíz del repositorio (`/` en Vercel).
+3. Framework preset: **Services** si Vercel lo solicita; el archivo `vercel.json` ya define los services.
+4. Deploy.
 
-### 2. Frontend (`apps/web`)
+### 2. Variables de entorno
 
-1. *Add New → Project* → mismo repo.
-2. **Root Directory**: `apps/web`
-3. Framework: *SvelteKit* (auto-detectado).
-4. Variable de entorno: `PUBLIC_API_URL=https://sistemai-api.vercel.app`
-5. Deploy.
+Configura en el proyecto de Vercel:
 
-### CORS
+**Backend (`api`)**
 
-Si el frontend y backend están en dominios distintos, agrega al backend:
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_ANON_KEY`
+- `JWT_SECRET`
+- `BCRYPT_ROUNDS`
+- `LB_WORKERS` (opcional)
+- `CORS_ORIGIN` (opcional; solo necesario si sirves la web desde otro dominio)
 
-```
-CORS_ORIGIN=https://tu-frontend.vercel.app
-```
+**Frontend (`web`)**
+
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
+- `PUBLIC_API_URL` es opcional. Si no se define, la web usa `/api` del mismo dominio.
+
+### 3. Verificar
+
+- Frontend: `https://<tu-dominio>.vercel.app/`
+- API health: `https://<tu-dominio>.vercel.app/api/health`
 
 ## Estructura
 

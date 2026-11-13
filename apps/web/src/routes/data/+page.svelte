@@ -1,12 +1,11 @@
 <script>
   import { api } from '$lib/stores';
+  import { API_URL } from '$lib/api';
 
   let message = $state('');
   let error = $state('');
   let importing = $state(false);
   let fileInput;
-
-  const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:4000';
 
   function getToken() {
     return localStorage.getItem('token');

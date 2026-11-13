@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:4000';
+export const API_URL =
+  import.meta.env.PUBLIC_API_URL ||
+  (import.meta.env.DEV ? 'http://localhost:4000' : '');
 
 async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('token');

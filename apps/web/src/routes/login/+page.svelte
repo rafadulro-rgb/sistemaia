@@ -1,12 +1,12 @@
 <script>
   import { setAuth } from '$lib/stores';
+  import { API_URL } from '$lib/api';
   import { supabase } from '$lib/supabase';
 
   let email = $state('');
   let password = $state('');
   let error = $state('');
   let loading = $state(false);
-  const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:4000';
 
   async function submit(e) {
     e.preventDefault();

@@ -1,7 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { browser } from '$app/environment';
-
-const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:4000';
+import { API_URL } from './api';
 
 export const auth = writable({
   token: browser ? localStorage.getItem('token') : null,

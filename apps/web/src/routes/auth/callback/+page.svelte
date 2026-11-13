@@ -1,9 +1,9 @@
 <script>
   import { onMount } from 'svelte';
+  import { API_URL } from '$lib/api';
   import { supabase } from '$lib/supabase';
   import { setAuth } from '$lib/stores';
 
-  const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:4000';
   let error = $state('');
 
   async function finishLogin(accessToken) {

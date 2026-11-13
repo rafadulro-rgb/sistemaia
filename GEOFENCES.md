@@ -82,7 +82,8 @@ Este sistema permite dibujar, guardar geocercas y detectar automáticamente cuan
 
 Frontend (`apps/web/.env`):
 ```
-PUBLIC_API_URL=http://localhost:4000
+# Opcional en desarrollo local. En Vercel Services se usa /api del mismo dominio.
+# PUBLIC_API_URL=http://localhost:4000
 PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
 ```
